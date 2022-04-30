@@ -1,0 +1,94 @@
+{
+	"info": {
+		"_postman_id": "d72db914-32ca-4329-9ea4-b531785163a2",
+		"name": "Countries with Environment",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "GET Default Country",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200)});\r",
+							"    \r",
+							"/*pm.test(\"Body should have USA as default countryg\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"string_you_want_to_search\");\r",
+							"});\r",
+							"});*/\r",
+							"\r",
+							"    pm.test(\"iso3 should be USA\", function () {\r",
+							"        var jsonData = pm.response.json();\r",
+							"        pm.expect(jsonData.data.attributes.iso3).to.eql(\"USA\");\r",
+							"    });"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://demo.spreecommerce.org/api/v2/storefront/countries/default",
+					"protocol": "https",
+					"host": [
+						"demo",
+						"spreecommerce",
+						"org"
+					],
+					"path": [
+						"api",
+						"v2",
+						"storefront",
+						"countries",
+						"default"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Retrieve a Country",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"iso3 should be IND \", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.attributes.iso3).to.eql(\"IND\");\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{Prod_URL}}/api/v2/storefront/countries/ind",
+					"host": [
+						"{{Prod_URL}}"
+					],
+					"path": [
+						"api",
+						"v2",
+						"storefront",
+						"countries",
+						"ind"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

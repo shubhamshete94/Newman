@@ -1,0 +1,392 @@
+{
+	"info": {
+		"_postman_id": "13f20034-b17c-4720-90d4-e290c57ba97a",
+		"name": "Address_Token_at_Collection_level",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Create an Address",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"capture address id\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"pm.globals.set(\"address_id\",jsonData.data.id);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"address\": {\r\n    \"firstname\": \"Shubham\",\r\n    \"lastname\": \"Winterburn\",\r\n    \"company\": \"Paper Street Soap Co.\",\r\n    \"address1\": \"775 Old Georgetown Road\",\r\n    \"address2\": \"3rd Floor\",\r\n    \"city\": \"Qethesda\",\r\n    \"phone\": \"3488545445002\",\r\n    \"zipcode\": \"90210\",\r\n    \"state_name\": \"CA\",\r\n    \"country_iso\": \"US\"\r\n  }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://demo.spreecommerce.org/api/v2/storefront/account/addresses",
+					"protocol": "https",
+					"host": [
+						"demo",
+						"spreecommerce",
+						"org"
+					],
+					"path": [
+						"api",
+						"v2",
+						"storefront",
+						"account",
+						"addresses"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create an Address_Negative_Scenario_403",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 403\", function () {\r",
+							"    pm.response.to.have.status(403);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Body matches string\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"You are not authorized to access this page\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"address\": {\r\n    \"firstname\": \"Shubham\",\r\n    \"lastname\": \"Winterburn\",\r\n    \"company\": \"Paper Street Soap Co.\",\r\n    \"address1\": \"775 Old Georgetown Road\",\r\n    \"address2\": \"3rd Floor\",\r\n    \"city\": \"Qethesda\",\r\n    \"phone\": \"3488545445002\",\r\n    \"zipcode\": \"90210\",\r\n    \"state_name\": \"CA\",\r\n    \"country_iso\": \"US\"\r\n  }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://demo.spreecommerce.org/api/v2/storefront/account/addresses",
+					"protocol": "https",
+					"host": [
+						"demo",
+						"spreecommerce",
+						"org"
+					],
+					"path": [
+						"api",
+						"v2",
+						"storefront",
+						"account",
+						"addresses"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create an Address_Label_Value_Exists_422",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 422\", function () {\r",
+							"    pm.response.to.have.status(422);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Body matches string\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"Address name has already been taken\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"address\": {\r\n    \"firstname\": \"Shubham\",\r\n    \"lastname\": \"Winterburn\",\r\n    \"company\": \"Paper Street Soap Co.\",\r\n    \"address1\": \"775 Old Georgetown Road\",\r\n    \"address2\": \"3rd Floor\",\r\n    \"city\": \"Qethesda\",\r\n    \"phone\": \"3488545445002\",\r\n    \"zipcode\": \"90210\",\r\n    \"state_name\": \"CA\",\r\n    \"country_iso\": \"US\",\r\n    \"label\": \"Home\"\r\n  }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://demo.spreecommerce.org/api/v2/storefront/account/addresses",
+					"protocol": "https",
+					"host": [
+						"demo",
+						"spreecommerce",
+						"org"
+					],
+					"path": [
+						"api",
+						"v2",
+						"storefront",
+						"account",
+						"addresses"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create an Address_Body_Frame_Blank",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Body matches string\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"First Name can't be blank\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Your first name cant be blank\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.errors.firstname[0]).to.eql(\"can't be blank\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"address\": {\r\n    \"firstname\": \"\",\r\n    \"lastname\": \"Winterburn\",\r\n    \"company\": \"Paper Street Soap Co.\",\r\n    \"address1\": \"775 Old Georgetown Road\",\r\n    \"address2\": \"3rd Floor\",\r\n    \"city\": \"Qethesda\",\r\n    \"phone\": \"3488545445002\",\r\n    \"zipcode\": \"90210\",\r\n    \"state_name\": \"CA\",\r\n    \"country_iso\": \"US\",\r\n    \"label\": \"Work1\"\r\n  }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://demo.spreecommerce.org/api/v2/storefront/account/addresses",
+					"protocol": "https",
+					"host": [
+						"demo",
+						"spreecommerce",
+						"org"
+					],
+					"path": [
+						"api",
+						"v2",
+						"storefront",
+						"account",
+						"addresses"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "List all Addresses",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://demo.spreecommerce.org/api/v2/storefront/account/addresses",
+					"protocol": "https",
+					"host": [
+						"demo",
+						"spreecommerce",
+						"org"
+					],
+					"path": [
+						"api",
+						"v2",
+						"storefront",
+						"account",
+						"addresses"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update an Address",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"address\": {\r\n    \"firstname\": \"Shubham\",\r\n    \"lastname\": \"Smith\",\r\n    \"company\": \"Woodbank School\",\r\n    \"address1\": \"234 Old Georgetown Road\",\r\n    \"address2\": \"1st Floor\",\r\n    \"city\": \"Aethesda\",\r\n    \"phone\": \"34885493845002\",\r\n    \"zipcode\": \"90211\",\r\n    \"state_name\": \"CA\",\r\n    \"country_iso\": \"US\"\r\n  }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://demo.spreecommerce.org/api/v2/storefront/account/addresses/{{address_id}}",
+					"protocol": "https",
+					"host": [
+						"demo",
+						"spreecommerce",
+						"org"
+					],
+					"path": [
+						"api",
+						"v2",
+						"storefront",
+						"account",
+						"addresses",
+						"{{address_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Remove an Address",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 204\", function () {\r",
+							"    pm.response.to.have.status(204);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "https://demo.spreecommerce.org/api/v2/storefront/account/addresses/{{address_id}}",
+					"protocol": "https",
+					"host": [
+						"demo",
+						"spreecommerce",
+						"org"
+					],
+					"path": [
+						"api",
+						"v2",
+						"storefront",
+						"account",
+						"addresses",
+						"{{address_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Remove an Address_404",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "https://demo.spreecommerce.org/api/v2/storefront/account/addresses/23082",
+					"protocol": "https",
+					"host": [
+						"demo",
+						"spreecommerce",
+						"org"
+					],
+					"path": [
+						"api",
+						"v2",
+						"storefront",
+						"account",
+						"addresses",
+						"23082"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{collection_token}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"pm.test('Access Toekn',function(){",
+					"pm.sendRequest({",
+					"    url: 'https://demo.spreecommerce.org/spree_oauth/token',",
+					"    method: 'POST',",
+					"    header: { ",
+					"        \"Content-Type\" : \"application/json\"",
+					"            },",
+					"   body:{",
+					"      mode:'raw',",
+					"      raw: JSON.stringify({",
+					"           \"grant_type\": \"password\",",
+					"    \"username\": \"shubham@spree.com\",",
+					"    \"password\": \"spree123\"",
+					"    })",
+					"   }",
+					"},",
+					"    function(err,response) {",
+					"        console.log(response);",
+					"        let responsejson = response.json();",
+					"        pm.globals.set('collection_token',responsejson.access_token);",
+					"    }",
+					")",
+					"    });"
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}

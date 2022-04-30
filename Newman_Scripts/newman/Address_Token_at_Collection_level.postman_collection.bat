@@ -1,0 +1,1 @@
+newman run Address_Token_at_Collection_level.postman_collection.json -r cli,htmlextra
